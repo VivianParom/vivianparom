@@ -37,6 +37,6 @@ steps:
     inputs:
       azureSubscription: 'vivianparom(3c05937d-7c54-46f5-a599-a713b28f3870)'
       appType: 'webApp'
-      appName: 'testrghtml'
+      appName: 'RG-Test-SouteastAsia-Azure'
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
       deploymentMethod: 'auto'
