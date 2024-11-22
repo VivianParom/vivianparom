@@ -1,6 +1,16 @@
 # ASP.NET
 - task: AzureWebApp@1
   inputs:
+    azureSubscription: 'vivianparom(1)(3c05937d-7c54-46f5-a599-a713b28f3870)'
+    appType: 'webApp'
+    appName: 'testrghtml'
+    deployToSlotOrASE: true
+    resourceGroupName: 'RGTest'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
+- task: AzureWebApp@1
+  inputs:
     azureSubscription: 'vivianparom(3c05937d-7c54-46f5-a599-a713b28f3870)'
     appType: 'webApp'
     appName: 'testrghtml'
