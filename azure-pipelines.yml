@@ -1,12 +1,9 @@
-variables:
-  - group: example-group-name  
-
 steps:
 - task: AzDOCosmosDBUpload@0
   inputs:
-    cosmosEndpointName: $(cosmosEndpoint)
-    cosmosKeyName: $(cosmosPrimaryKey)
-    cosmosDatabase: 'example-database'
-    cosmosContainer: 'example-container'
-    fileLocation: 'path/to/example/file.json'
-    optInTelemetry: true
+    cosmosEndpointName: $(cosmosEndpoint)        
+    cosmosKeyName: $(cosmosPrimaryKey)            
+    cosmosDatabase: 'example-database'           
+    cosmosContainer: 'example-container'         
+    fileLocation: 'correct/path/to/file.json'   
+    optInTelemetry: true                        
