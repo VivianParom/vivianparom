@@ -1,23 +1,12 @@
 variables:
-- group: CosmosDBVariables   
+  - group: example-group-name  
 
-trigger:
-  branches:
-    include:
-      - main  
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-jobs:
-- job: CosmosDBUpload
-  displayName: 'Upload JSON to Cosmos DB'
-  steps:
-  - task: AzDOCosmosDBUpload@0
-    inputs:
-      cosmosEndpointName: $(cosmosEndpoint)     
-      cosmosKeyName: $(cosmosPrimaryKey)         
-      cosmosDatabase: 'example-database'         
-      cosmosContainer: 'example-container'      
-      fileLocation: 'path/to/your/file.json'     
-      optInTelemetry: true 
+steps:
+- task: AzDOCosmosDBUpload@0
+  inputs:
+    cosmosEndpointName: $(cosmosEndpoint)
+    cosmosKeyName: $(cosmosPrimaryKey)
+    cosmosDatabase: 'example-database'
+    cosmosContainer: 'example-container'
+    fileLocation: 'path/to/example/file.json'
+    optInTelemetry: true
