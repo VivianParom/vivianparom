@@ -1,45 +1,23 @@
+variables:
+- group: CosmosDBVariables   
+
 trigger:
-  - master
+  branches:
+    include:
+      - main  
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-  # Install NuGet
-  - task: NuGetToolInstaller@1
-
-  # Restore NuGet packages
-  - task: NuGetCommand@2
+jobs:
+- job: CosmosDBUpload
+  displayName: 'Upload JSON to Cosmos DB'
+  steps:
+  - task: AzDOCosmosDBUpload@0
     inputs:
-      restoreSolution: '$(solution)'
-
-  # Build the solution
-  - task: VSBuild@1
-    inputs:
-      solution: '$(solution)'
-      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-
-  # Run tests
-  - task: VSTest@2
-    inputs:
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-
-  # Deploy to Azure Web App
-  - task: AzureWebApp@1
-    inputs:
-      azureSubscription: 'vivianparom(3c05937d-7c54-46f5-a599-a713b28f3870)'
-      appType: 'webApp'
-      appName: 'testrghtml'
-      deployToSlotOrASE: true
-      resourceGroupName: 'RGTest'
-      slotName: 'production'
-      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-      deploymentMethod: 'auto'
+      cosmosEndpointName: $(cosmosEndpoint)     
+      cosmosKeyName: $(cosmosPrimaryKey)         
+      cosmosDatabase: 'example-database'         
+      cosmosContainer: 'example-container'      
+      fileLocation: 'path/to/your/file.json'     
+      optInTelemetry: true 
